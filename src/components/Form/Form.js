@@ -1,26 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addtoDoActionCreator } from "../../redux/features/toDos/toDosSlice";
+import { addToDoThunk } from "../../thunks/toDosThunks";
 
 const Form = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [id, setId] = useState(0);
   const [done, setDone] = useState(false);
 
   const changeName = (event) => setName(event.target.value);
-  const changeId = (event) => setId(event.target.value);
   const changeDone = (event) => setDone(event.target.value);
 
   const addToDo = (event) => {
     event.preventDefault();
-    dispatch(addtoDoActionCreator({ id: id, name: name, done: done }));
+    const toDo = { name, done };
+    dispatch(addToDoThunk(toDo));
   };
 
   return (
     <>
-      <label htmlFor="id">Id:</label>
-      <input type="number" id="id" onChange={changeId}></input>
       <label htmlFor="name">Name:</label>
       <input type="text" id="name" onChange={changeName}></input>
       <label htmlFor="done">Done:</label>
