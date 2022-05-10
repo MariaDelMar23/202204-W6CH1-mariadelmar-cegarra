@@ -5,12 +5,7 @@ import ToDoData from "../../ToDoData";
 import ToDo from "../ToDo/ToDo";
 
 const ToDoList = () => {
-  const dispatch = useDispatch();
   const toDos = useSelector((state) => state.toDos);
-
-  useEffect(() => {
-    dispatch(loadToDosActionCreator(ToDoData));
-  }, [dispatch]);
 
   return (
     <div className="todo-section">
