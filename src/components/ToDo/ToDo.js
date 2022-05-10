@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { editToDoActionCreator } from "../../redux/features/toDos/toDosSlice";
+import {
+  deleteToDoActionCreator,
+  editToDoActionCreator,
+} from "../../redux/features/toDos/toDosSlice";
 import { deleteToDoThunk, updateToDoThunk } from "../../thunks/toDosThunks";
 
 const ToDo = ({ todo: { id, name, done } }) => {
@@ -14,6 +18,7 @@ const ToDo = ({ todo: { id, name, done } }) => {
   const changeDone = (event) => {
     const done = event.target.checked;
     dispatch(updateToDoThunk(id, { id: id, name, done: done }));
+
   };
 
   const changeName = (event) => {
