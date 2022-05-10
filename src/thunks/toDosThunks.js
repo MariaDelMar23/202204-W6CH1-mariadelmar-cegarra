@@ -19,9 +19,12 @@ export const deleteToDoThunk = (id) => async (dispatch) => {
 };
 
 export const updateToDoThunk = (id, todo) => async (dispatch) => {
-  const { status } = await axios.put(process.env.REACT_APP_API_URL + id, todo);
+  const done = todo.done;
+  const { status } = await axios.patch(process.env.REACT_APP_API_URL + id, {
+    done: done,
+  });
   if (status === 200) {
-    dispatch(editToDoActionCreator({ id, todo }));
+    dispatch(editToDoActionCreator(todo));
   }
 };
 
