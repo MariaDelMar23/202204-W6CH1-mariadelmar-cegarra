@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ToDoData from "../../ToDoData";
 import ToDo from "./ToDo";
 
@@ -21,14 +22,15 @@ describe("Given the ToDo component", () => {
       expect(nameHeading).toBeInTheDocument();
     });
 
-    test("Then it should render a 'DELETE' button", () => {
+    test("Then it should render a 'DELETE' button and call a function when clicked", () => {
       const toDo = ToDoData[0];
       const text = "DELETE";
 
       render(<ToDo todo={toDo} />);
       const deleteButton = screen.getByRole("button", { name: text });
+      userEvent.click(deleteButton);
 
-      expect(deleteButton).toBeInTheDocument();
+      expect(mockUseDispatch).toHaveBeenCalled();
     });
 
     test("Then it should render a text 'DONE!'", () => {
@@ -43,12 +45,13 @@ describe("Given the ToDo component", () => {
 
     test("Then it should render a checked checkbox", () => {
       const toDo = ToDoData[0];
-      const expectedChecked = true;
 
       render(<ToDo todo={toDo} />);
       const checkbox = screen.getByRole("checkbox");
+      userEvent.click(checkbox);
 
-      expect(checkbox).toHaveProperty("checked", expectedChecked);
+      expect(mockUseDispatch).toHaveBeenCalled();
+      expect(checkbox).toBeChecked();
     });
   });
 

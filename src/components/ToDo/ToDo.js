@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   deleteToDoActionCreator,
   editToDoActionCreator,
 } from "../../redux/features/toDos/toDosSlice";
+import { deleteToDoThunk } from "../../thunks/toDosThunks";
 
 const ToDo = ({ todo: { id, name, done } }) => {
   const dispatch = useDispatch();
+  const [nameEdit, setNameEdit] = useState("name");
+
   const deleteToDo = () => {
-    dispatch(deleteToDoActionCreator(id));
+    dispatch(deleteToDoThunk(id));
   };
 
   const changeDone = (event) => {
@@ -15,10 +19,26 @@ const ToDo = ({ todo: { id, name, done } }) => {
     dispatch(editToDoActionCreator({ id, name, done }));
   };
 
+  const changeName = (event) => {
+    dispatch(editToDoActionCreator({ id, name: nameEdit, done }));
+  };
+
   return (
     <>
       <h2>{name}</h2>
       {done ? <p>DONE!</p> : <p>PENDING</p>}
+      {/* {editing && (
+        <>
+          <label htmlFor="name">Change name:</label>
+          <input
+            type="text"
+            id="name"
+            onChange={setNameEdit}
+            value={nameEdit}
+          />
+          <input type="submit" onClick={changeName} />
+        </>
+      )} */}
       <input type="checkbox" onChange={changeDone} checked={done} />
       <button onClick={deleteToDo}>DELETE</button>
     </>
