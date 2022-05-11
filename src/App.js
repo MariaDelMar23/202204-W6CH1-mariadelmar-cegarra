@@ -3,6 +3,13 @@ import { useDispatch } from "react-redux";
 import Form from "./components/Form/Form";
 import ToDoList from "./components/ToDoList/ToDoList";
 import { loadToDosThunk } from "./thunks/toDosThunks";
+import styled from "styled-components";
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+`;
 
 function App() {
   const dispatch = useDispatch();
@@ -12,10 +19,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <ToDoList />
+    <StyledContainer>
+      <h1>My ToDo list</h1>
       <Form />
-    </>
+      <ToDoList />
+    </StyledContainer>
   );
 }
 

@@ -15,6 +15,7 @@ const ToDo = ({ todo: { id, name, done } }) => {
 
   return (
     <>
+      <input type="checkbox" onChange={changeDone} checked={done} />
       <h2>{name}</h2>
       {done ? <p>DONE!</p> : <p>PENDING</p>}
       {/* {editing && (
@@ -29,7 +30,7 @@ const ToDo = ({ todo: { id, name, done } }) => {
           <input type="submit" onClick={changeName} />
         </>
       )} */}
-      <input type="checkbox" onChange={changeDone} checked={done} />
+
       <button onClick={deleteToDo}>DELETE</button>
     </>
   );
